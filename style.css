@@ -1,0 +1,352 @@
+/* ==========================================================================
+   취미 소개 페이지 스타일시트 (style.css)
+   특징: 순수 CSS, 완전 반응형, 모바일 텍스트 잘림 방지, 제로 외부 의존성
+   ========================================================================== */
+
+/* 1. 디자인 시스템 변수 정의 */
+:root {
+  --color-primary: #0284c7;
+  --color-primary-light: #e0f2fe;
+  --color-primary-dark: #0369a1;
+  --color-accent: #10b981;
+  --color-accent-light: #ecfdf5;
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f1f5f9;
+  --color-border: #e2e8f0;
+  --color-text-main: #0f172a;
+  --color-text-muted: #475569;
+  --color-text-light: #64748b;
+  --color-shadow: rgba(15, 23, 42, 0.06);
+  --color-shadow-hover: rgba(2, 132, 199, 0.12);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --transition-default: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 2. 전역 리셋 & 기본 타이포그래피 */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  background-color: var(--color-bg);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR",
+               "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  color: var(--color-text-main);
+  background-color: var(--color-bg);
+  line-height: 1.65;
+  letter-spacing: -0.015em;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* 3. 레이아웃 래퍼 */
+.page-wrapper {
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 3.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+/* 4. 헤더 / 히어로 섹션 */
+.hero {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  background: linear-gradient(145deg, #ffffff 0%, #f0fdf4 50%, #f0f9ff 100%);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 25px -5px var(--color-shadow), 0 8px 10px -6px var(--color-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.95rem;
+  background: var(--color-surface);
+  color: var(--color-primary-dark);
+  font-size: 0.875rem;
+  font-weight: 700;
+  border-radius: 999px;
+  border: 1px solid var(--color-primary-light);
+  box-shadow: 0 2px 5px rgba(2, 132, 199, 0.08);
+  margin-bottom: 1.25rem;
+}
+
+.hero-title {
+  font-size: clamp(1.85rem, 5vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--color-text-main);
+  margin-bottom: 1.15rem;
+}
+
+.hero-title .highlight {
+  color: var(--color-primary);
+  background: linear-gradient(120deg, #0284c7, #10b981);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.hero-intro {
+  font-size: clamp(1rem, 2.5vw, 1.15rem);
+  color: var(--color-text-muted);
+  max-width: 620px;
+  margin: 0 auto 1.5rem;
+  line-height: 1.7;
+}
+
+.tag-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.3rem 0.75rem;
+  background-color: rgba(255, 255, 255, 0.85);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-size: 0.825rem;
+  color: var(--color-text-light);
+  font-weight: 600;
+}
+
+/* 5. 공통 섹션 스타일 */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.section-header {
+  text-align: center;
+}
+
+.section-title {
+  font-size: clamp(1.4rem, 4vw, 1.85rem);
+  font-weight: 800;
+  color: var(--color-text-main);
+  margin-bottom: 0.45rem;
+  position: relative;
+  display: inline-block;
+}
+
+.section-subtitle {
+  font-size: 0.95rem;
+  color: var(--color-text-light);
+}
+
+/* 6. 이모지 카드 3장 그리드 */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+
+.emoji-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: var(--transition-default);
+  box-shadow: 0 4px 6px -1px var(--color-shadow), 0 2px 4px -2px var(--color-shadow);
+}
+
+.emoji-card:hover {
+  transform: translateY(-4px);
+  border-color: #cbd5e1;
+  box-shadow: 0 12px 20px -3px var(--color-shadow-hover);
+}
+
+.emoji-icon {
+  font-size: 3.25rem;
+  line-height: 1;
+  margin-bottom: 1.25rem;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.08));
+  user-select: none;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 0.75rem;
+}
+
+.card-desc {
+  font-size: 0.925rem;
+  color: var(--color-text-muted);
+  line-height: 1.65;
+}
+
+/* 7. "이 취미를 시작하려면" 3단계 가이드 */
+.steps-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.step-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem 1.75rem;
+  box-shadow: 0 4px 6px -1px var(--color-shadow);
+  transition: var(--transition-default);
+}
+
+.step-card:hover {
+  border-color: var(--color-primary-light);
+  box-shadow: 0 8px 16px -2px var(--color-shadow-hover);
+  background: linear-gradient(90deg, #ffffff 0%, #fcfdfe 100%);
+}
+
+.step-number {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1.1rem;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(2, 132, 199, 0.25);
+}
+
+.step-content {
+  flex: 1;
+  min-width: 0; /* flex 자식 줄바꿈 보장 */
+}
+
+.step-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 0.45rem;
+}
+
+.step-desc {
+  font-size: 0.925rem;
+  color: var(--color-text-muted);
+  line-height: 1.65;
+}
+
+/* 8. 푸터 영역 */
+.footer {
+  text-align: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.footer-cheer {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+}
+
+.footer-copy {
+  font-size: 0.825rem;
+  color: var(--color-text-light);
+}
+
+/* 9. 모바일 화면 최적화 (가로폭 640px 이하) */
+@media (max-width: 640px) {
+  .page-wrapper {
+    padding: 1.5rem 1rem 2.5rem;
+    gap: 2.5rem;
+  }
+
+  .hero {
+    padding: 2.25rem 1rem;
+    border-radius: var(--radius-md);
+  }
+
+  .hero-intro {
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .emoji-card {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .emoji-icon {
+    font-size: 2.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .step-card {
+    padding: 1.25rem 1rem;
+    gap: 1rem;
+  }
+
+  .step-number {
+    width: 38px;
+    height: 38px;
+    font-size: 0.95rem;
+  }
+
+  .step-title {
+    font-size: 1.025rem;
+  }
+
+  .step-desc {
+    font-size: 0.885rem;
+  }
+
+  .footer-cheer {
+    font-size: 0.95rem;
+  }
+}
+
+/* 10. 초소형 스마트폰 (360px 이하) 극단적 텍스트 보호 */
+@media (max-width: 380px) {
+  .step-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .hero-title {
+    font-size: 1.65rem;
+  }
+}
